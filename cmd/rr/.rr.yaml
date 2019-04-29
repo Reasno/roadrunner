@@ -15,18 +15,18 @@ http:
   # http host to listen.
   address:   0.0.0.0:8080
 
-  ssl:
-    # custom https port (default 443)
-    port:     443
+  # ssl:
+  #   # custom https port (default 443)
+  #   port:     443
 
-    # force redirect to https connection
-    redirect: true
+  #   # force redirect to https connection
+  #   redirect: true
 
-    # ssl cert
-    cert:     server.crt
+  #   # ssl cert
+  #   cert:     server.crt
 
-    # ssl private key
-    key:      server.key
+  #   # ssl private key
+  #   key:      server.key
 
   # max POST request size, including file uploads in MB.
   maxRequest: 200
@@ -47,7 +47,7 @@ http:
     # worker pool configuration.
     pool:
       # number of workers to be serving.
-      numWorkers: 4
+      numWorkers: 16
 
       # maximum jobs per worker, 0 - unlimited.
       maxJobs:  0
@@ -65,3 +65,11 @@ static:
 
   # list of extensions for forbid for serving.
   forbid: [".php", ".htaccess"]
+
+grpc:
+  listen: "tcp://:9001"
+  proto: "service.proto"
+  workers:
+    command: "php grpc-worker.php"
+    pool:
+      numWorkers: 4
